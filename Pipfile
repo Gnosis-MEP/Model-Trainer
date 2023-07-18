@@ -12,12 +12,17 @@ name = "sit-git"
 ipython = "*"
 ipdb = "*"
 flake8 = "*"
+torch = "==1.13.1"
+torchvision = "==0.14.1"
 
 [packages]
 walrus = "==0.7.1"
 python-decouple = "==3.1"
 event-service-utils = "*"
+numpy = "==1.22.3"
+opencv-python-headless = "==4.5.5.64"
+fastai = "==2.7.12"
 model_trainer = {path = ".",editable = true}
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"

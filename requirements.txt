@@ -1,4 +1,7 @@
 event-service-utils
 python-decouple==3.1
 walrus==0.7.1
+numpy==1.22.3
+opencv-python-headless==4.5.5.64
+fastai==2.7.12
 -e file:./#egg=model_trainer

@@ -13,6 +13,8 @@ TRACER_REPORTING_PORT = config('TRACER_REPORTING_PORT', default='6831')
 
 SERVICE_STREAM_KEY = config('SERVICE_STREAM_KEY')
 
+DATASET_PATH = config('DATASET_PATH', default=os.path.join(SOURCE_DIR, 'data'))
+
 
 # LISTEN_EVENT_TYPE_SOME_EVENT_TYPE = config('LISTEN_EVENT_TYPE_SOME_EVENT_TYPE')
 # LISTEN_EVENT_TYPE_OTHER_EVENT_TYPE = config('LISTEN_EVENT_TYPE_OTHER_EVENT_TYPE')
@@ -28,7 +30,7 @@ PUB_EVENT_LIST = [
     # PUB_EVENT_TYPE_NEW_EVENT_TYPE,
 ]
 
-# Only for Content Extraction services 
+# Only for Content Extraction services
 SERVICE_DETAILS = None
 
 # Example of how to define SERVICE_DETAILS from env vars:

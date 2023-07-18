@@ -1,6 +1,9 @@
 # Model Trainer
 A service that provide training for some types of models
 
+
+`python -m torch.distributed.run `
+
 # Commands Stream
 ## Inputs
 ...
