@@ -13,7 +13,7 @@ TRACER_REPORTING_PORT = config('TRACER_REPORTING_PORT', default='6831')
 
 SERVICE_STREAM_KEY = config('SERVICE_STREAM_KEY')
 
-DATASET_PATH = config('DATASET_PATH', default=os.path.join(SOURCE_DIR, 'data'))
+DATASET_PATH = config('DATASET_PATH', default=os.path.join(PROJECT_ROOT, 'data', 'coco_tiny'))
 
 
 # LISTEN_EVENT_TYPE_SOME_EVENT_TYPE = config('LISTEN_EVENT_TYPE_SOME_EVENT_TYPE')
