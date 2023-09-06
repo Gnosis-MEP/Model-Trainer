@@ -1,0 +1,21 @@
+{
+    "classes": {
+        "62": {
+            "name": "chair"
+        },
+        "63": {
+            "name": "couch"
+        },
+        "75": {
+            "name": "tv"
+        }
+    },
+    "annotations": {
+        "123456": {
+            "category": 62
+        },
+        "234567": {
+            "category": 75
+        }
+    }
+}
