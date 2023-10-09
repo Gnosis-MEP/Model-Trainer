@@ -11,3 +11,9 @@ services:
     build:
       context: '.'
       dockerfile: 'Dockerfile'
+  rpi:
+    image: registry.insight-centre.org/sit/mps/felipe-phd/model-trainer:rpi
+    command: echo "ok"
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile.rpi'

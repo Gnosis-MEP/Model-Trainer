@@ -15,20 +15,22 @@ RUN apt-get update \
         python3-yaml \
         wget \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && pip3 install -U setuptools
+
 
 # Set environment variables for building PyTorch
 ENV NO_CUDA=1
 ENV NO_DISTRIBUTED=1
 ENV NO_MKLDNN=1
 
-# Install setuptools
-RUN pip3 install -U setuptools
-
 # Clone the PyTorch repository and build
 RUN git clone --recursive --branch v1.13.1 https://github.com/pytorch/pytorch /pytorch \
     && cd /pytorch \
-    && python3 setup.py build
+    && python3 setup.py build \
+    && python3 setup.py install \
+    && cd / \
+    && rm -rf /pytorch
 
 # Clone the torchvision repository and install
 RUN git clone --branch v0.14.1 https://github.com/pytorch/vision /vision \
