@@ -1,0 +1,49 @@
+# Use the official Python image as the base image
+FROM python:3.8-slim-buster
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        git \
+        build-essential \
+        libopenblas-dev \
+        libblas-dev \
+        m4 \
+        cmake \
+        cython \
+        python3-dev \
+        python3-yaml \
+        wget \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set environment variables for building PyTorch
+ENV NO_CUDA=1
+ENV NO_DISTRIBUTED=1
+ENV NO_MKLDNN=1
+
+# Install setuptools
+RUN pip3 install -U setuptools
+
+# Clone the PyTorch repository and build
+RUN git clone --recursive --branch v1.13.1 https://github.com/pytorch/pytorch /pytorch \
+    && cd /pytorch \
+    && python3 setup.py build
+
+# Clone the torchvision repository and install
+RUN git clone --branch v0.14.1 https://github.com/pytorch/vision /vision \
+    && cd /vision \
+    && python3 setup.py install
+
+# Clean up unnecessary packages and files
+RUN apt-get purge -y --auto-remove git build-essential wget \
+    && rm -rf /var/lib/apt/lists/* /pytorch /vision
+
+# (Optional) Set a working directory
+WORKDIR /app
+
+# (Optional) Copy your application code into the container
+# COPY . /app
+
+# (Optional) Specify the default command to run when the container starts
+# CMD ["python", "your_script.py"]

@@ -1,0 +1,136 @@
+final res cls vs obj:
+throughput: 111.83 vs 50
+acc: 0.826 vs 0.944
+f1: 0.507 vs 0.788
+
+classifier:
+{'accuracy': 0.6381048387096774, 'precision': 0.8145695364238411, 'recall': 0.2709251101321586, 'f1_score': 0.40661157024793393, 'avg_latency': 0.008980127719494252, 'std_latency': 0.00092769981484899,
+'throughput': 111.35699081753357}
+
+{
+    "threshold": 0.5,
+    "accuracy": 0.6454736842105263,
+    "precision": 0.8227228207639569,
+    "recall": 0.26373626373626374,
+    "f1_score": 0.39942938659058486,
+    "avg_latency": 0,
+    "std_latency": 0,
+    "throughput": 0
+}
+{
+    "threshold": 0.6,
+    "accuracy": 0.7847719298245615,
+    "precision": 0.7242899118511263,
+    "recall": 0.3713281446146121,
+    "f1_score": 0.490954356846473,
+    "avg_latency": 0,
+    "std_latency": 0,
+    "throughput": 0
+}
+{
+    "threshold": 0.65,
+    "accuracy": 0.8267602339181287,
+    "precision": 0.6240613777342475,
+    "recall": 0.4282993502128613,
+    "f1_score": 0.5079723624767474,
+    "avg_latency": 0,
+    "std_latency": 0,
+    "throughput": 0
+}
+{
+    "threshold": 0.75,
+    "accuracy": 0.8375263157894737,
+    "precision": 0.49106268364348676,
+    "recall": 0.4400438837081733,
+    "f1_score": 0.46415552855407044,
+    "avg_latency": 0,
+    "std_latency": 0,
+    "throughput": 0
+}
+{
+    "threshold": 0.8,
+    "accuracy": 0.8417263157894737,
+    "precision": 0.3953966699314398,
+    "recall": 0.4416365824308063,
+    "f1_score": 0.41723941915146506,
+    "avg_latency": 0,
+    "std_latency": 0,
+    "throughput": 0
+}
+{
+    "threshold": 0.95,
+    "accuracy": 0.8442222222222222,
+    "precision": 0.3294972249428665,
+    "recall": 0.4416365824308063,
+    "f1_score": 0.37741317253307155,
+    "avg_latency": 0,
+    "std_latency": 0,
+    "throughput": 0
+}
+
+
+object detection:
+ "avg_latency": 0.02082590103149414,
+"std_latency": 0.0013629808335052604,
+"throughput": 48.01713013462139
+
+{
+    "threshold": 0.5,
+    "accuracy": 0.9442105263157895,
+    "precision": 0.7252693437806073,
+    "recall": 0.8635568513119534,
+    "f1_score": 0.7883949960074528,
+    "avg_latency": 9.145504898495144e-07,
+    "std_latency": 8.023870645908879e-07,
+    "throughput": 1093433.3435921574
+}
+{
+    "threshold": 0.6,
+    "accuracy": 0.9398245614035088,
+    "precision": 0.6819294809010774,
+    "recall": 0.8700406123086536,
+    "f1_score": 0.7645847632120797,
+    "avg_latency": 8.970002333323161e-07,
+    "std_latency": 8.318459070237769e-07,
+    "throughput": 1114826.9117891355
+}
+{
+    "threshold": 0.65,
+    "accuracy": 0.9364444444444444,
+    "precision": 0.6518119490695397,
+    "recall": 0.8724055057898187,
+    "f1_score": 0.7461459403905446,
+    "avg_latency": 8.943125053688332e-07,
+    "std_latency": 8.369529485663978e-07,
+    "throughput": 1118177.3641726938
+}
+{
+    "threshold": 0.75,
+    "accuracy": 0.9305438596491228,
+    "precision": 0.6029627815866797,
+    "recall": 0.873072150327956,
+    "f1_score": 0.7133029183865595,
+    "avg_latency": 8.936805857552422e-07,
+    "std_latency": 8.269551539780226e-07,
+    "throughput": 1118968.0249738311
+}
+{
+    "threshold": 0.8,
+    "accuracy": 0.9244912280701755,
+    "precision": 0.5492654260528893,
+    "recall": 0.8781709990604447,
+    "f1_score": 0.6758255001205109,
+    "avg_latency": 8.918311860826281e-07,
+    "std_latency": 8.282094502153851e-07,
+    "throughput": 1121288.4406885386
+}
+{
+    "threshold": 0.95,
+    "accuracy": 0.9131929824561403,
+    "precision": 0.4577211883774078,
+    "recall": 0.8781709990604447,
+    "f1_score": 0.6017813070071897,
+    "avg_latency": 8.900353202113399e-07,
+    "std_latency": 8.114959290627142e-07,
+    "throughput": 1123550.9167911997
+}

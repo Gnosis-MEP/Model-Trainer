@@ -15,7 +15,7 @@ from torch.utils.data import (
 )
 
 from torchvision import transforms
-from fastai.vision.all import ImageDataLoaders, Resize, get_image_files, RandomSplitter, Normalize, imagenet_stats
+from fastai.vision.all import get_image_files
 
 
 class AnnotationLabel():
@@ -78,10 +78,11 @@ class AnnotationLabel():
 
 
 class ContextualizedDataset(Dataset):
-    def __init__(self, path, annotation_file='train.json', images_dir='train', ids=None, transform=None):
+    def __init__(self, path, annotation_file='train.json', images_dir='train', ids=None, transform=None, device=None):
         self.annotations_path = os.path.join(path, annotation_file)
         self.annotation = AnnotationLabel(self.annotations_path)
         self.images_path = os.path.join(path, images_dir)
+        self.device = device
 
         if ids is None:
             self.ids = list(self.annotation.get_ids())
@@ -109,27 +110,11 @@ class ContextualizedDataset(Dataset):
         y_label = torch.tensor(int(label))
 
         if self.transform:
+            if self.device is not None:
+                self.transform.to(self.device)
             image = self.transform(image)
 
         return (image, y_label)
-
-
-def get_loader(path, annotation_file='train.json', images_dir='train'):
-    splitter = RandomSplitter(valid_pct=0.2, seed=123)  # You can adjust valid_pct as needed
-    annotations_path = os.path.join(path, annotation_file)
-    annotation = AnnotationLabel(annotations_path)
-    images_path = os.path.join(path, images_dir)
-    files = [f for f in get_image_files(images_path) if '_fg' not in f.name]
-    loader = ImageDataLoaders.from_name_func(
-        path,
-        files,
-        annotation.label_func,
-        item_tfms=Resize(256, 224),
-        batch_tfms = [Normalize.from_stats(*imagenet_stats)],
-        splitter=splitter,
-        device=torch.device('cuda')
-    )
-    return loader
 
 
 def get_train_test_split(path, annotation_file='train.json', images_dir='train', train_transform=None, val_transform=None):

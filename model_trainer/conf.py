@@ -13,8 +13,18 @@ TRACER_REPORTING_PORT = config('TRACER_REPORTING_PORT', default='6831')
 
 SERVICE_STREAM_KEY = config('SERVICE_STREAM_KEY')
 
-DATASET_PATH = config('DATASET_PATH', default=os.path.join(PROJECT_ROOT, 'data', 'coco_tiny'))
 
+DATASET_ID = config('DATASET_ID', default='TS-D-Q-1-5S')
+
+DATASET_PATH = config('DATASET_PATH', default=os.path.join(PROJECT_ROOT, 'data', 'my_creations', DATASET_ID))
+MODELS_PATH = config('MODELS_PATH', default=os.path.join(DATASET_PATH, 'models'))
+MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-150_car_person-bird-dog')
+
+EVAL_PATH = config('EVAL_PATH', default=os.path.join(PROJECT_ROOT, 'data', 'eval'))
+EVAL_ID = MODEL_ID
+EVAL_CONFS_JSON = config('EVAL_CONFS_JSON', default=os.path.join(EVAL_PATH, f'{EVAL_ID}.json'))
+
+EVAL_PREDICTION_JSON = config('EVAL_PREDICTION_JSON', default=os.path.join(EVAL_PATH, f'pred-{EVAL_ID}.json'))
 
 # LISTEN_EVENT_TYPE_SOME_EVENT_TYPE = config('LISTEN_EVENT_TYPE_SOME_EVENT_TYPE')
 # LISTEN_EVENT_TYPE_OTHER_EVENT_TYPE = config('LISTEN_EVENT_TYPE_OTHER_EVENT_TYPE')
