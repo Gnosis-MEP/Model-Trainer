@@ -71,12 +71,18 @@ def create_segment_eval_config(base_annotations_json_path, query_ois, other_clas
 
     segment_eval_config = {
         'Total_Non_Ignored_Frames': total_non_ignored_frames,
+        'SizePerc': {
+            'TP': (len(true_positives), len(true_positives)/total_non_ignored_frames),
+            'TN': (len(true_negatives), len(true_negatives)/total_non_ignored_frames),
+            'Partials': (len(partial_ois), len(partial_ois)/total_non_ignored_frames),
+            'others': (len(other_objects), len(other_objects)/total_non_ignored_frames),
+        },
         'Classes_Examined':  query_ois + other_classes,
         'OIs_id': ois_cls_ids,
         'Others_id': other_classes_ids,
         'TP': true_positives,
         'TN': true_negatives,
-        'Oartial_OIs': partial_ois,
+        'Partial_OIs': partial_ois,
         'Other_Objects': other_objects,
     }
 

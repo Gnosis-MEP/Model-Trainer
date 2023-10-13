@@ -1,4 +1,4 @@
-final res cls vs obj:
+final results classifier (fine-tune, 1 epoch) vs obj:
 throughput: 111.83 vs 50
 acc: 0.826 vs 0.944
 f1: 0.507 vs 0.788
