@@ -11,7 +11,7 @@ from torchvision.transforms.transforms import InterpolationMode
 
 from model_trainer.cls_model_transforms import get_transforms
 from model_trainer.dataloader_torch import get_train_test_split
-from model_trainer.conf import DATASET_PATH, MODEL_ID
+from model_trainer.conf import DATASET_PATH, MODELS_PATH, MODEL_ID
 from torch.utils.data import (
     DataLoader,
 )
@@ -131,7 +131,7 @@ def fine_tune(num_epochs=1):
     print("Checking accuracy on Val Set")
     check_accuracy(device, val_data_loader, model)
 
-    model_path = os.path.join(DATASET_PATH, 'models', f'{MODEL_ID}.pth')
+    model_path = os.path.join(MODELS_PATH, f'{MODEL_ID}.pth')
     torch.save(model.state_dict(), model_path)
     return model
 
