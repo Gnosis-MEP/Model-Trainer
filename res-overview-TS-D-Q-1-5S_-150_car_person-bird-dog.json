@@ -1,0 +1,73 @@
+final results classifier (fine-tune, 1 epoch, 0.6 t) vs obj (0.5 t):
+throughput: 111.35 vs 50
+acc: 0.924 vs  0.944
+prec: 0.800 vs 0.863
+recall: 0.625 vs 0.725
+f1: 0.702 vs 0.788
+
+
+classifier:
+{'accuracy': 0.6381048387096774, 'precision': 0.8145695364238411, 'recall': 0.2709251101321586, 'f1_score': 0.40661157024793393, 'avg_latency': 0.008980127719494252, 'std_latency': 0.00092769981484899,
+'throughput': 111.35699081753357}
+[
+    {
+        "threshold": 0.5,
+        "accuracy": 0.6454736842105263,
+        "precision": 0.26373626373626374,
+        "recall": 0.8227228207639569,
+        "f1_score": 0.39942938659058486,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.6,
+        "accuracy": 0.9240701754385965,
+        "precision": 0.8007518796992481,
+        "recall": 0.6258570029382958,
+        "f1_score": 0.702583837273227,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.65,
+        "accuracy": 0.9107368421052632,
+        "precision": 0.9010416666666666,
+        "recall": 0.4236043095004897,
+        "f1_score": 0.5762824783477681,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.75,
+        "accuracy": 0.8698245614035087,
+        "precision": 0.9947089947089947,
+        "recall": 0.0920666013712047,
+        "f1_score": 0.16853428955625283,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.8,
+        "accuracy": 0.8585263157894737,
+        "precision": 1.0,
+        "recall": 0.012732615083251714,
+        "f1_score": 0.02514506769825919,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.95,
+        "accuracy": 0.856701754385965,
+        "precision": 0,
+        "recall": 0.0,
+        "f1_score": 0,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    }
+]

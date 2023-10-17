@@ -19,11 +19,13 @@ from model_trainer.conf import EVAL_PATH, DATASET_ID
 
 #     return total_ois, total_other
 
-def get_total_ois_and_others_cls_for_annotation(annotation, ois_cls_ids, other_classes_ids):
+def get_total_ois_and_others_cls_for_annotation(annotation, ois_cls_ids, other_classes_ids, equiv_ois_ids):
     ois_set = set()
     others_set = set()
     for obj in annotation['data']:
-        if obj['class_id'] in ois_cls_ids:
+        if obj['class_id'] in equiv_ois_ids.keys():
+            ois_set.add(equiv_ois_ids[obj['class_id']])
+        elif obj['class_id'] in ois_cls_ids:
             ois_set.add(obj['class_id'])
         elif obj['class_id'] in other_classes_ids:
             others_set.add(obj['class_id'])
@@ -33,6 +35,8 @@ def get_total_ois_and_others_cls_for_annotation(annotation, ois_cls_ids, other_c
 
     return total_ois, total_other
 
+def check_is_oi_cls(cls_name, query_ois, equiv_ois):
+    return cls_name.lower() in query_ois or cls_name.lower() in equiv_ois
 
 def create_segment_eval_config(base_annotations_json_path, query_ois, other_classes, n_ignored_frames):
     base_annotations = None
@@ -41,13 +45,21 @@ def create_segment_eval_config(base_annotations_json_path, query_ois, other_clas
 
     eval_conf_name = f'{DATASET_ID}_-{n_ignored_frames}_{"-".join(query_ois)}_{"-".join(other_classes)}'
 
+
+
     ois_cls_ids = [
         int(k) for k, v in base_annotations['classes'].items() if v['name'].lower() in query_ois
     ]
     other_classes_ids =  [
         int(k) for k, v in base_annotations['classes'].items() if v['name'].lower() in other_classes
     ]
-    print(ois_cls_ids)
+
+    equiv_ois_ids = {}
+    for i, label in enumerate(query_ois):
+        if label.lower() == 'car':
+            for k, v in base_annotations['classes'].items():
+                if v['name'].lower() in ['truck', 'bus']:
+                    equiv_ois_ids[int(k)] = ois_cls_ids[i]
 
     partial_ois = []
     other_objects = []
@@ -59,7 +71,7 @@ def create_segment_eval_config(base_annotations_json_path, query_ois, other_clas
         frame_number = int(example_id.split('frame_')[1])
         if frame_number <= n_ignored_frames:
             continue
-        total_ois, total_others = get_total_ois_and_others_cls_for_annotation(annotation, ois_cls_ids, other_classes_ids)
+        total_ois, total_others = get_total_ois_and_others_cls_for_annotation(annotation, ois_cls_ids, other_classes_ids, equiv_ois_ids)
         if total_ois == len(ois_cls_ids):
             true_positives.append(example_id)
         else:
@@ -91,7 +103,7 @@ def create_segment_eval_config(base_annotations_json_path, query_ois, other_clas
         json.dump(segment_eval_config, f)
 
 
-    print(json.dumps(segment_eval_config, indent=4))
+    # print(json.dumps(segment_eval_config, indent=4))
     print(f'total: {total_non_ignored_frames}')
     print(f'TP: {len(true_positives)} ({len(true_positives)/total_non_ignored_frames * 100}%)')
     print(f'TN: {len(true_negatives)} ({len(true_negatives)/total_non_ignored_frames * 100}%)')
@@ -105,8 +117,8 @@ if __name__ == '__main__':
     query_ois = sys.argv[3].split(',')
     other_classes = sys.argv[4].split(',')
 
-    n_ignored_frames = 30 * n_ignored_sec
 
+    n_ignored_frames = 30 * n_ignored_sec
 
 
     create_segment_eval_config(base_annotations_json_path, query_ois, other_classes, n_ignored_frames)

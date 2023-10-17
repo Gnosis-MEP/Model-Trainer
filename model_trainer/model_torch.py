@@ -126,10 +126,10 @@ def fine_tune(num_epochs=1):
         # Set the model back to training mode
         model.train()
 
-    print("Checking accuracy on Training Set")
-    check_accuracy(device, train_data_loader, model)
-    print("Checking accuracy on Val Set")
-    check_accuracy(device, val_data_loader, model)
+    # print("Checking accuracy on Training Set")
+    # check_accuracy(device, train_data_loader, model)
+    # print("Checking accuracy on Val Set")
+    # check_accuracy(device, val_data_loader, model)
 
     model_path = os.path.join(MODELS_PATH, f'{MODEL_ID}.pth')
     torch.save(model.state_dict(), model_path)

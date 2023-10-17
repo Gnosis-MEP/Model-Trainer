@@ -84,8 +84,9 @@ class ClsEvaluator(object):
         false_negatives = len(self.false_negatives_events)
         denominator = (true_positives + false_negatives)
         if denominator == 0:
+            print("bad recall")
             return 0
-        return true_positives / (true_positives + false_negatives)
+        return true_positives / denominator
 
     def calculate_f1_score(self, precision, recall):
         nominator = 2 * (precision * recall)
@@ -128,7 +129,6 @@ class ClsEvaluator(object):
 
     def run(self, threshold=0.5, recreate_predict=False):
         run_predict = not os.path.exists(EVAL_PREDICTION_JSON) or recreate_predict
-        run_predict = True
         if run_predict is False:
             with open(EVAL_PREDICTION_JSON, 'r') as f:
                 self.predicted_values = json.load(f)
@@ -167,19 +167,17 @@ class ClsEvaluator(object):
                 if positive_pred:
                     self.true_positives_events.append(image_id)
                 else:
-                    self.false_positives_events.append(image_id)
+                    self.false_negatives_events.append(image_id)
             elif image_id in self.eval_confs['TN']:
                 if not positive_pred:
                     self.true_negatives_events.append(image_id)
                 else:
-                    self.false_negatives_events.append(image_id)
+                    self.false_positives_events.append(image_id)
             else:
                 processed = 0
 
             total_eval += processed
             if self.debug and proc_index % 500 == 0:
-                avg_latency, std_latency = self.calculate_latency()
-
                 print(f'i: {proc_index + 1}/{total_images}. total_eval: {total_eval/total_to_eval * 100}%')
                 print(f'{self.calculate_metrics()}')
 
@@ -222,12 +220,19 @@ if __name__ == '__main__':
     # logging.getLogger('fastai').setLevel(logging.CRITICAL)
     # logging.getLogger('torchvision').setLevel(logging.CRITICAL)
 
+
     num_classes = 2
     base_model = get_base_fine_tuned_model(models.mobilenet_v3_large(), num_classes, freeze=False)
-    evaluator = ClsEvaluator(eval_images_dir, base_model, MODEL_ID)
-    evaluator.debug = False
-    threshold = 0.5
-    for threshold in [0.5, 0.6, 0.65, 0.75, 0.8, 0.95]:
-        res = evaluator.run(threshold=threshold, recreate_predict=False)
+    if not os.path.exists(EVAL_PREDICTION_JSON):
+        evaluator = ClsEvaluator(eval_images_dir, base_model, MODEL_ID)
+        evaluator.debug = True
+        threshold = 0.5
+        res = evaluator.run(threshold=threshold, recreate_predict=True)
         print(json.dumps(res, indent=4))
-        break
+    res_list = []
+    for threshold in [0.5, 0.6, 0.65, 0.75, 0.8, 0.95]:
+        evaluator = ClsEvaluator(eval_images_dir, base_model, MODEL_ID)
+        evaluator.debug = False
+        res = evaluator.run(threshold=threshold, recreate_predict=False)
+        res_list.append(res)
+    print(json.dumps(res_list, indent=4))

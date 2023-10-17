@@ -1,0 +1,236 @@
+final results classifier (fine-tune, 1 epoch, 0.75 t) vs obj (0.5 t):
+throughput: 102.41 vs 43.99942528124327
+acc: 0.991 vs  0.987
+prec: 0.853 vs 0.730
+recall: 0.719 vs 0.623
+f1: 0.780 vs 0.672
+
+cls:
+{
+    "threshold": 0.5,
+    "accuracy": 0.9578014184397163,
+    "precision": 0.31942789034564956,
+    "recall": 0.9178082191780822,
+    "f1_score": 0.4739168877099912,
+    "avg_latency": 0.0097637649708324,
+    "std_latency": 0.001013083938125495,
+    "throughput": 102.41950753498585
+}
+
+[
+    {
+        "threshold": 0.5,
+        "accuracy": 0.9578014184397163,
+        "precision": 0.31942789034564956,
+        "recall": 0.9178082191780822,
+        "f1_score": 0.4739168877099912,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.6,
+        "accuracy": 0.9822695035460993,
+        "precision": 0.5448717948717948,
+        "recall": 0.8732876712328768,
+        "f1_score": 0.6710526315789475,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.65,
+        "accuracy": 0.9856028368794326,
+        "precision": 0.6082725060827251,
+        "recall": 0.8561643835616438,
+        "f1_score": 0.7112375533428166,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.75,
+        "accuracy": 0.9916312056737588,
+        "precision": 0.8536585365853658,
+        "recall": 0.7191780821917808,
+        "f1_score": 0.7806691449814127,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.8,
+        "accuracy": 0.9885106382978723,
+        "precision": 0.8457446808510638,
+        "recall": 0.5445205479452054,
+        "f1_score": 0.6625,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.95,
+        "accuracy": 0.9794326241134752,
+        "precision": 1.0,
+        "recall": 0.00684931506849315,
+        "f1_score": 0.013605442176870748,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    }
+]
+
+obj:
+{
+    "threshold": 0.5,
+    "accuracy": 0.9874468085106383,
+    "precision": 0.7309236947791165,
+    "recall": 0.6232876712328768,
+    "f1_score": 0.6728280961182995,
+    "avg_latency": 0.022727569590012233,
+    "std_latency": 0.003107550533200235,
+    "throughput": 43.99942528124327
+}
+[
+    {
+        "threshold": 0.5,
+        "accuracy": 0.9874468085106383,
+        "precision": 0.7309236947791165,
+        "recall": 0.6232876712328768,
+        "f1_score": 0.6728280961182995,
+        "avg_latency": 0.035697053488757874,
+        "std_latency": 4.011566898961463e-07,
+        "throughput": 28.013516586598147
+    },
+    {
+        "threshold": 0.6,
+        "accuracy": 0.9859574468085106,
+        "precision": 0.7764705882352941,
+        "recall": 0.4520547945205479,
+        "f1_score": 0.5714285714285714,
+        "avg_latency": 0.0321331278151936,
+        "std_latency": 7.146085412402724e-07,
+        "throughput": 31.120530990673345
+    },
+    {
+        "threshold": 0.65,
+        "accuracy": 0.984468085106383,
+        "precision": 0.7786259541984732,
+        "recall": 0.3493150684931507,
+        "f1_score": 0.48226950354609927,
+        "avg_latency": 0.03168560228414006,
+        "std_latency": 6.273770329625547e-07,
+        "throughput": 31.560075488940317
+    },
+    {
+        "threshold": 0.75,
+        "accuracy": 0.9809929078014185,
+        "precision": 0.8,
+        "recall": 0.1095890410958904,
+        "f1_score": 0.19277108433734938,
+        "avg_latency": 0.031104573690228992,
+        "std_latency": 7.141382296924499e-07,
+        "throughput": 32.14961278553495
+    },
+    {
+        "threshold": 0.8,
+        "accuracy": 0.9798581560283688,
+        "precision": 0.8333333333333334,
+        "recall": 0.03424657534246575,
+        "f1_score": 0.06578947368421052,
+        "avg_latency": 0.031053086552355023,
+        "std_latency": 6.163833213500119e-07,
+        "throughput": 32.20291800346531
+    },
+    {
+        "threshold": 0.95,
+        "accuracy": 0.979290780141844,
+        "precision": 0,
+        "recall": 0.0,
+        "f1_score": 0,
+        "avg_latency": 0.029791120837132135,
+        "std_latency": 1.7415893497608471e-06,
+        "throughput": 33.56704856681941
+    }
+]
+
+
+
+on TS-D-Q-1:
+this cls (0.65 t) vs TS-D-Q-1-5S_-150_car_person-bird-dog model (no fix on aug to apply transf on the fg, 0.6t), vs obj (0.5t):
+throughput: 105.70 vs 111.35 vs 50
+accuracy: 0.910 vs 0.924 vs  0.944
+precision: 0.671 vs 0.800 vs 0.863
+recall: 0.739 vs 0.625 vs 0.725
+f1_score: 0.703 vs 0.702 vs 0.788
+
+
+speed:
+{
+    "avg_latency": 0.009459889663590326,
+    "std_latency": 0.0008338690485828992,
+    "throughput": 105.7094781822718
+}
+
+[
+    {
+        "threshold": 0.5,
+        "accuracy": 0.6589473684210526,
+        "precision": 0.28462243962091105,
+        "recall": 0.9118511263467189,
+        "f1_score": 0.4338303821062442,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.6,
+        "accuracy": 0.8753684210526316,
+        "precision": 0.5454856361149111,
+        "recall": 0.7810969637610186,
+        "f1_score": 0.6423681031010874,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.65,
+        "accuracy": 0.9108070175438596,
+        "precision": 0.6712572190137717,
+        "recall": 0.7399608227228207,
+        "f1_score": 0.7039366410435594,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.75,
+        "accuracy": 0.9266666666666666,
+        "precision": 0.8445058742225293,
+        "recall": 0.5984329089128305,
+        "f1_score": 0.7004872456291199,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.8,
+        "accuracy": 0.9202807017543859,
+        "precision": 0.9133211678832117,
+        "recall": 0.490205680705191,
+        "f1_score": 0.6379859783301466,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.95,
+        "accuracy": 0.859719298245614,
+        "precision": 1.0,
+        "recall": 0.021057786483839373,
+        "f1_score": 0.04124700239808154,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    }
+]
