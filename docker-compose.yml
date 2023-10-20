@@ -11,9 +11,12 @@ services:
     build:
       context: '.'
       dockerfile: 'Dockerfile'
-  rpi:
-    image: registry.insight-centre.org/sit/mps/felipe-phd/model-trainer:rpi
+
+  rpi-builder:
+    image: registry.insight-centre.org/sit/mps/felipe-phd/model-trainer:builder-latest-rpi
     command: echo "ok"
     build:
       context: '.'
-      dockerfile: 'Dockerfile.rpi'
+      dockerfile: 'Dockerfile_builder.rpi'
+    volumes:
+      - "./:/app"

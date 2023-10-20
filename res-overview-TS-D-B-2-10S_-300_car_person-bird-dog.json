@@ -1,0 +1,146 @@
+final results classifier (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+throughput: 106.94 vs 40.76
+acc: 0.601 vs 0.923
+prec: 0.968 vs 0.957
+recall: 0.544 vs 0.950
+f1: 0.696 vs 0.954
+
+
+cls:
+{
+    "avg_latency": 0.009350577708747651,
+    "std_latency": 0.0008354163465985334,
+    "throughput": 106.94526382733338
+}
+[
+    {
+        "threshold": 0.5,
+        "accuracy": 0.60177304964539,
+        "precision": 0.968215892053973,
+        "recall": 0.544473484529129,
+        "f1_score": 0.6969942258917489,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.6,
+        "accuracy": 0.4053900709219858,
+        "precision": 0.9803813208068527,
+        "recall": 0.2991316077902369,
+        "f1_score": 0.45839793281653746,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.65,
+        "accuracy": 0.29120567375886525,
+        "precision": 0.9809376609994848,
+        "recall": 0.16052609392125453,
+        "f1_score": 0.2759020431821475,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.75,
+        "accuracy": 0.17361702127659576,
+        "precision": 0.9771689497716894,
+        "recall": 0.01804232358148554,
+        "f1_score": 0.035430463576158935,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.8,
+        "accuracy": 0.16035460992907802,
+        "precision": 1.0,
+        "recall": 0.001854818312115336,
+        "f1_score": 0.003702768661112513,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    },
+    {
+        "threshold": 0.95,
+        "accuracy": 0.15879432624113476,
+        "precision": 0,
+        "recall": 0.0,
+        "f1_score": 0,
+        "avg_latency": 0,
+        "std_latency": 0,
+        "throughput": 0
+    }
+]
+
+
+obj:
+{
+    "avg_latency": 0.024531783676809735,
+    "std_latency": 0.0038942862153927,
+    "throughput": 40.76344440234548
+}
+[
+    {
+        "threshold": 0.5,
+        "accuracy": 0.9234042553191489,
+        "precision": 0.9578697018601886,
+        "recall": 0.9507630048056657,
+        "f1_score": 0.9543031226199544,
+        "avg_latency": 0.036877227375904716,
+        "std_latency": 8.783339776118135e-07,
+        "throughput": 27.117006108040325
+    },
+    {
+        "threshold": 0.6,
+        "accuracy": 0.9156737588652483,
+        "precision": 0.9713780918727916,
+        "recall": 0.9270719163645561,
+        "f1_score": 0.948707993615461,
+        "avg_latency": 0.028917082250118256,
+        "std_latency": 9.681715849522818e-07,
+        "throughput": 34.58163556580507
+    },
+    {
+        "threshold": 0.65,
+        "accuracy": 0.9019858156028369,
+        "precision": 0.9761883122784695,
+        "recall": 0.9055728859286738,
+        "f1_score": 0.9395556333100071,
+        "avg_latency": 0.02917053934600618,
+        "std_latency": 8.491259553750943e-07,
+        "throughput": 34.2811625160065
+    },
+    {
+        "threshold": 0.75,
+        "accuracy": 0.7979432624113475,
+        "precision": 0.9885082393755421,
+        "recall": 0.7687378804485288,
+        "f1_score": 0.8648802466208204,
+        "avg_latency": 0.03026394741402732,
+        "std_latency": 1.0800911614424107e-06,
+        "throughput": 33.042616229781736
+    },
+    {
+        "threshold": 0.8,
+        "accuracy": 0.543049645390071,
+        "precision": 0.9943430656934307,
+        "recall": 0.4594047719416575,
+        "f1_score": 0.6284527997231992,
+        "avg_latency": 0.03001499498883883,
+        "std_latency": 1.3124827044506506e-06,
+        "throughput": 33.316680558229415
+    },
+    {
+        "threshold": 0.95,
+        "accuracy": 0.15879432624113476,
+        "precision": 0,
+        "recall": 0.0,
+        "f1_score": 0,
+        "avg_latency": 0.03096123046345181,
+        "std_latency": 1.4270262538512515e-06,
+        "throughput": 32.29845794340926
+    }
+]

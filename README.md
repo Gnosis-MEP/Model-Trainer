@@ -83,6 +83,10 @@ And, in order to make the automatic tests work, you should also set the rest of 
 ## Benchmark Tests
 To run the benchmark tests one needs to manually start the Benchmark stage in the CI pipeline, it shoud be enabled after the tests stage is done. Only by passing the benchmark tests shoud the image be tagged with 'latest', to show that it is a stable docker image.
 
+#  Install PyTorch on Raspberry Pi
+https://gist.github.com/wenig/8bab88dede5c838660dd05b8e5b2e23b
+ sudo apt install libavcodec-dev libavformat-dev libswscale-dev
 
+maybe this as well: https://pytorch.org/tutorials/intermediate/realtime_rpi.html
 
 CUDA_VISIBLE_DEVICES="" python model_trainer/eval_cls_model_torch.py
