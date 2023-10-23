@@ -1,20 +1,17 @@
 import os
-from matplotlib import pyplot
 
 
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torchvision import transforms
+from torch.utils.data import (
+    DataLoader,
+)
 import torchvision.models as models
-from torchvision.transforms.transforms import InterpolationMode
 
 from model_trainer.cls_model_transforms import get_transforms
 from model_trainer.dataloader_torch import get_train_test_split
 from model_trainer.conf import DATASET_PATH, MODELS_PATH, MODEL_ID
-from torch.utils.data import (
-    DataLoader,
-)
 
 
 def get_base_fine_tuned_model(base_model, num_classes=2, freeze=True):

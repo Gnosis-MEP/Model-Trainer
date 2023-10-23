@@ -1,0 +1,8 @@
+# Use the official Python image as the base image
+FROM python:3.8-slim-buster
+RUN uname -m
+
+
+
+https://gist.github.com/wenig/8bab88dede5c838660dd05b8e5b2e23b
+ sudo apt install libavcodec-dev libavformat-dev libswscale-dev

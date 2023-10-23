@@ -1,0 +1,8 @@
+# Use the official Python image as the base image
+FROM jonoh/docker-buildx-qemu:latest
+
+# (Optional) Copy your application code into the container
+COPY . /app
+
+# (Optional) Specify the default command to run when the container starts
+# CMD ["python", "your_script.py"]
