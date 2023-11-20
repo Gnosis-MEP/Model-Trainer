@@ -15,10 +15,10 @@ SERVICE_STREAM_KEY = config('SERVICE_STREAM_KEY')
 
 
 # DATASET_ID = config('DATASET_ID', default='TS-D-Q-1-5S')
-DATASET_ID = config('DATASET_ID', default='TS-D-Q-1-10S')
+# DATASET_ID = config('DATASET_ID', default='TS-D-Q-1-10S')
 # DATASET_ID = config('DATASET_ID', default='TS-D-Q-2-10S')
 # DATASET_ID = config('DATASET_ID', default='TS-D-Q-1b-10S')
-# DATASET_ID = config('DATASET_ID', default='TS-D-B-2-10S')
+DATASET_ID = config('DATASET_ID', default='TS-D-B-2-10S')
 
 AUGMENTED_DATASETS_PATH = config('AUGMENTED_DATASETS_PATH')
 
@@ -27,6 +27,7 @@ MODELS_PATH = config('MODELS_PATH', default=os.path.join(PROJECT_ROOT, 'data', '
 # MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-150_car_person-bird-dog')
 # MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-300_person_car-bird-dog')
 MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-300_car_person-bird-dog')
+# MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-300_car_person-bird-dog_region')
 
 # MODEL_ID =  config('MODEL_ID', default=f'TS-D-Q-1b-10S_-300_car_person-bird-dog') # overriding just to test out a model in another dataset
 
@@ -38,6 +39,7 @@ EVAL_ID = MODEL_ID
 EVAL_CONFS_JSON = config('EVAL_CONFS_JSON', default=os.path.join(EVAL_PATH, f'{EVAL_ID}.json'))
 
 EVAL_PREDICTION_JSON = config('EVAL_PREDICTION_JSON', default=os.path.join(EVAL_PATH, f'pred-{EVAL_ID}.json'))
+EVAL_DIFF_PREDICTION_JSON = config('EVAL_DIFF_PREDICTION_JSON', default=os.path.join(EVAL_PATH, f'pred_diff_{{t}}_-{EVAL_ID}.json'))
 
 # LISTEN_EVENT_TYPE_SOME_EVENT_TYPE = config('LISTEN_EVENT_TYPE_SOME_EVENT_TYPE')
 # LISTEN_EVENT_TYPE_OTHER_EVENT_TYPE = config('LISTEN_EVENT_TYPE_OTHER_EVENT_TYPE')

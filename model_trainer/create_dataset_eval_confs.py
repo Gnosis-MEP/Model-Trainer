@@ -2,22 +2,8 @@ import json
 import os
 import sys
 
-
-from model_trainer.dataloader import get_loader
 from model_trainer.conf import EVAL_PATH, DATASET_ID
 
-
-# def get_total_ois_and_others_cls_for_annotation(annotation, ois_cls_ids, other_classes_ids):
-#     total_ois = 0
-#     total_other = 0
-#     for oi_id in ois_cls_ids:
-#         for obj in annotation['data']:
-#             if obj['class_id'] == oi_id:
-#                 total_ois += 1
-#             elif obj['class_id'] in other_classes_ids:
-#                 total_other += 1
-
-#     return total_ois, total_other
 
 def get_total_ois_and_others_cls_for_annotation(annotation, ois_cls_ids, other_classes_ids, equiv_ois_ids):
     ois_set = set()
@@ -57,9 +43,14 @@ def create_segment_eval_config(base_annotations_json_path, query_ois, other_clas
     equiv_ois_ids = {}
     for i, label in enumerate(query_ois):
         if label.lower() == 'car':
+            car_cls_id = None
+            for k, v in base_annotations['classes'].items():
+                if v['name'].lower() == label.lower():
+                    car_cls_id = int(k)
+
             for k, v in base_annotations['classes'].items():
                 if v['name'].lower() in ['truck', 'bus']:
-                    equiv_ois_ids[int(k)] = ois_cls_ids[i]
+                    equiv_ois_ids[int(k)] = car_cls_id
 
     partial_ois = []
     other_objects = []

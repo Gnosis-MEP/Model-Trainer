@@ -6,15 +6,16 @@ import time
 
 from PIL import Image
 
-import torch
-import torchvision.models as models
-
-from model_trainer.cls_model_transforms import get_transforms
-from model_trainer.model_torch import get_base_fine_tuned_model
-from model_trainer.conf import EVAL_CONFS_JSON, EVAL_PREDICTION_JSON, MODELS_PATH, MODEL_ID
+import cv2
+import numpy as np
 
 
-class ClsEvaluator(object):
+from model_trainer.cv_diff_model_transforms import get_transforms
+from model_trainer.model_cv_diff import get_base_diff_model
+from model_trainer.conf import EVAL_CONFS_JSON, EVAL_DIFF_PREDICTION_JSON, MODEL_ID
+
+
+class DiffEvaluator(object):
 
     def __init__(self, eval_images_dir, base_model, fine_tune_name):
         self.eval_confs = None
@@ -35,21 +36,16 @@ class ClsEvaluator(object):
         self.latencies = []
 
     def setup_model(self, base_model, fine_tune_name):
-        model_path = os.path.join(MODELS_PATH, f'{fine_tune_name}.pth')
-        self.device = torch.device('cpu')
-
-        # self.model = models.get_model("mobilenet_v3_large", weights=weights)
-        # Load the saved state dictionary
-        base_model.load_state_dict(torch.load(model_path, map_location=self.device))
-        self.model = base_model.to(self.device)
-        self.model.eval()
+        self.model = base_model()
         self._hot_start(240, 240)
 
     def _hot_start(self, width, height):
         print('hotstart!')
         # Create black blank image
         image = Image.new("RGB", (width, height))
-        return self.model_predict(image, ignore=True)
+        self.model_predict(image, ignore=True)
+        self.model.prev_key_frame = None
+
 
     def setup_eval_confs(self):
         self.eval_confs = None
@@ -83,7 +79,6 @@ class ClsEvaluator(object):
         false_negatives = len(self.false_negatives_events)
         denominator = (true_positives + false_negatives)
         if denominator == 0:
-            print("bad recall")
             return 0
         return true_positives / denominator
 
@@ -127,39 +122,32 @@ class ClsEvaluator(object):
         return results
 
     def run(self, threshold=0.5, recreate_predict=False):
-        run_predict = not os.path.exists(EVAL_PREDICTION_JSON) or recreate_predict
+        self.model.diff_threshold = threshold
+
+        t_predict_json = EVAL_DIFF_PREDICTION_JSON.format(t=int(threshold*100))
+
+        run_predict = not os.path.exists(t_predict_json) or recreate_predict
         if run_predict is False:
-            with open(EVAL_PREDICTION_JSON, 'r') as f:
+            with open(t_predict_json, 'r') as f:
                 self.predicted_values = json.load(f)
 
         total_to_eval = self.eval_confs['Total_Non_Ignored_Frames']
         total_images = len(self.images_paths)
         total_eval = 0
-        # for proc_index, image_path in enumerate(self.images_paths[:1000]):
-        for proc_index, image_path in enumerate(self.images_paths):
+        sorted_images_path = sorted(self.images_paths, key=lambda k: int(os.path.basename(k).split('.png')[0].split('frame_')[1]))
+        for proc_index, image_path in enumerate(sorted_images_path):
             image_id = os.path.basename(image_path).split('.')[0]
 
-            # if run_predict is False:
             if run_predict is True:
-                class_probs = self.model_predict(image_path)
-                # try:
-                #     np.testing.assert_almost_equal(
-                #         self.predicted_values[image_id], class_probs,
-                #         decimal=4
-                #     )
-                # except AssertionError as e:
-                #     print(e)
-                #     print(f'previous: {self.predicted_values[image_id]}, new : {class_probs}')
-
+                diff_perc = self.model_predict(image_path)
 
                 if recreate_predict is True:
-                    self.predicted_values[image_id] = class_probs
+                    self.predicted_values[image_id] = diff_perc
             else:
-                class_probs = self.predicted_values[image_id]
+                diff_perc = self.predicted_values[image_id]
 
-            non_oi_prob, has_oi_prob = class_probs
 
-            positive_pred = has_oi_prob > threshold
+            positive_pred = diff_perc > threshold
 
             processed = 1
             if image_id in self.eval_confs['TP']:
@@ -181,7 +169,7 @@ class ClsEvaluator(object):
                 print(f'{self.calculate_metrics()}')
 
         if recreate_predict is True:
-            with open(EVAL_PREDICTION_JSON, 'w') as f:
+            with open(t_predict_json, 'w') as f:
                 json.dump(self.predicted_values, f)
         if self.debug:
             print(f'total_eval: {total_eval}. total_to_eval {total_to_eval}. total_images: {total_images}.')
@@ -192,26 +180,28 @@ class ClsEvaluator(object):
 
     def model_predict(self, image_path, ignore=False):
         if isinstance(image_path, str):
-            image = Image.open(image_path)
+            pil_image = Image.open(image_path)
+            image = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
         else:
             image = image_path
-        with torch.no_grad():
-            # input_tensor = torch.from_numpy(np.asarray(image))
-            preprocessing = get_transforms('VAL')
-            input_batch = preprocessing(image).unsqueeze(0)
-            start_time = time.time()
-            prediciton = self.model(input_batch).squeeze(0).softmax(0)
-            class_probs = prediciton.tolist()
-            end_time = time.time()
-            predict_time = (end_time - start_time)
-            if ignore is False:
-                self.latencies.append(predict_time)
+        # input_tensor = torch.from_numpy(np.asarray(image))
+        # preprocessing = get_transforms('VAL')
+        # input_batch = preprocessing(image).unsqueeze(0)
+        input_batch = image
+        start_time = time.time()
+        prediciton = self.model.predict(input_batch)
+        perc_diff = prediciton
+        end_time = time.time()
+        predict_time = (end_time - start_time)
+        if ignore is False:
+            self.latencies.append(predict_time)
 
-        return class_probs
+
+        return perc_diff
 
 if __name__ == '__main__':
     # threshold = float(sys.argv[1])
-    eval_images_dir = '/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/TS-D-B-2'
+    eval_images_dir = '/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/TS-D-Q-1'
 
     # # Disable logging for fastai and its dependencies
     # logging.getLogger('fastai').setLevel(logging.CRITICAL)
@@ -220,18 +210,21 @@ if __name__ == '__main__':
     # logging.getLogger('torchvision').setLevel(logging.CRITICAL)
 
 
-    num_classes = 2
-    base_model = get_base_fine_tuned_model(models.mobilenet_v3_large(), num_classes, freeze=False)
-    if not os.path.exists(EVAL_PREDICTION_JSON):
-        evaluator = ClsEvaluator(eval_images_dir, base_model, MODEL_ID)
-        evaluator.debug = True
-        threshold = 0.5
-        res = evaluator.run(threshold=threshold, recreate_predict=True)
-        print(json.dumps(res, indent=4))
+    base_model = get_base_diff_model()
+    # threshold = 0.5
+    # t_predict_json = EVAL_DIFF_PREDICTION_JSON.format(t=int(threshold*100))
+    # if not os.path.exists(t_predict_json):
+    #     evaluator = DiffEvaluator(eval_images_dir, base_model, MODEL_ID)
+    #     evaluator.debug = True
+    #     res = evaluator.run(threshold=threshold, recreate_predict=True)
+    #     print(json.dumps(res, indent=4))
     res_list = []
-    for threshold in [0.5, 0.6, 0.65, 0.75, 0.8, 0.95]:
-        evaluator = ClsEvaluator(eval_images_dir, base_model, MODEL_ID)
-        evaluator.debug = False
-        res = evaluator.run(threshold=threshold, recreate_predict=False)
+    for threshold in [0.05, 0.10, 0.15, 0.25, 0.35, 0.5]:
+        t_predict_json = EVAL_DIFF_PREDICTION_JSON.format(t=int(threshold*100))
+        if not os.path.exists(t_predict_json):
+            evaluator = DiffEvaluator(eval_images_dir, base_model, MODEL_ID)
+            evaluator.debug = True
+            res = evaluator.run(threshold=threshold, recreate_predict=True)
         res_list.append(res)
+        time.sleep(5)
     print(json.dumps(res_list, indent=4))
