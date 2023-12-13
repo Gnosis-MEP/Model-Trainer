@@ -49,7 +49,7 @@ if __name__ == '__main__':
         '/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/TS-D-B-2/frame_10.png'
     )), cv2.COLOR_RGB2BGR)
     image4 = cv2.cvtColor(np.array(Image.open(
-        '/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/TS-D-B-2/frame_100.png'
+        '/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/TS-D-B-2/frame_91.png'
     )), cv2.COLOR_RGB2BGR)
 
     image5 = cv2.cvtColor(np.array(Image.open(

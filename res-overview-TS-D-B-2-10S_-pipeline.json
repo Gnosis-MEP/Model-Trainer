@@ -1,0 +1,76 @@
+# final results:
+## Low latency:
+### pipeline: TS-D-B-2-30-1920x1080-ModelPipeline
+    -cv-30-car-150
+    -diff_15
+    -cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_30_70
+    -obj_yolov5n_50
+
+pipeline vs diff(t 0.05) vs classifier regions (no reg) (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+throughput: 264.541 vs 525.794 vs 104.687 vs 40.76
+acc: 0.913 vs 0.432 vs 0.854(0.601) vs 0.923
+prec: 0.942 vs 0.946 vs 0.946(0.968) vs 0.957
+recall: 0.954 vs 0.345 vs 0.876(0.544) vs 0.950
+f1: 0.948 vs 0.506 vs 0.910(0.696) vs 0.954
+
+{
+    "accuracy": 0.9131205673758865,
+    "precision": 0.9427239427239428,
+    "recall": 0.9547255711997302,
+    "f1_score": 0.9486868009885646,
+    "avg_latency": 0.0037801203411312444,
+    "std_latency": 0.008774569538985108,
+    "throughput": 264.54184252259506
+}
+
+
+
+
+TS-D-B-2-30-1920x1080-ModelPipeline-cv-30-car-250-diff_15-cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_30_60-obj_yolov5n_50.json
+
+### pipeline: TS-D-B-2-30-1920x1080-ModelPipeline
+    -cv-30-car-250
+    -diff_15
+    -cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_30_60
+    -obj_yolov5n_50
+
+pipeline(PC) vs diff(t 0.05) vs classifier regions (no reg) (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+throughput: 294.442 vs 525.794 vs 104.687 vs 40.76
+acc: 0.915 vs 0.432 vs 0.854(0.601) vs 0.923
+prec: 0.960 vs 0.946 vs 0.946(0.968) vs 0.957
+recall: 0.960 vs 0.345 vs 0.876(0.544) vs 0.950
+f1: 0.950 vs 0.506 vs 0.910(0.696) vs 0.954
+
+{
+    "accuracy": 0.9155319148936171,
+    "precision": 0.9405450041288191,
+    "recall": 0.9602900261360762,
+    "f1_score": 0.9503149639147302,
+    "avg_latency": 0.0033962432358080378,
+    "std_latency": 0.007783886289101033,
+    "throughput": 294.4429861373221
+}
+
+### pipeline(RPI): TS-D-B-2-30-1920x1080-ModelPipeline
+    -cv-30-car-250
+    -diff_15
+    -cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_30_60
+    -obj_yolov5n_50
+
+pipeline(RPI) vs diff(t 0.05) vs classifier regions (no reg) (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+throughput: 74.445 vs 525.794 vs 104.687 vs 40.76
+acc: 0.921 vs 0.432 vs 0.854(0.601) vs 0.923
+prec: 0.938 vs 0.946 vs 0.946(0.968) vs 0.957
+recall: 0.969 vs 0.345 vs 0.876(0.544) vs 0.950
+f1: 0.953 vs 0.506 vs 0.910(0.696) vs 0.954
+
+{
+    "accuracy": 0.9212765957446809,
+    "precision": 0.9386372909016728,
+    "recall": 0.9698170474664868,
+    "f1_score": 0.9539724664123403,
+    "avg_latency": 0.013432619144821871,
+    "std_latency": 0.09117649432403141,
+    "throughput": 74.44564527726442
+}
+

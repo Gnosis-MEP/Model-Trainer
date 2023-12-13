@@ -11,7 +11,7 @@ import torchvision.models as models
 
 from model_trainer.cls_model_transforms import get_transforms
 from model_trainer.model_torch import get_base_fine_tuned_model
-from model_trainer.conf import EVAL_CONFS_JSON, EVAL_PREDICTION_JSON, MODELS_PATH, MODEL_ID
+from model_trainer.conf import EVAL_CONFS_JSON, EVAL_PREDICTION_JSON, MODELS_PATH, MODEL_ID, DATASET_ID
 
 
 class ClsEvaluator(object):
@@ -135,8 +135,9 @@ class ClsEvaluator(object):
         total_to_eval = self.eval_confs['Total_Non_Ignored_Frames']
         total_images = len(self.images_paths)
         total_eval = 0
+        sorted_images_path = sorted(self.images_paths, key=lambda k: int(os.path.basename(k).split('.png')[0].split('frame_')[1]))
         # for proc_index, image_path in enumerate(self.images_paths[:1000]):
-        for proc_index, image_path in enumerate(self.images_paths):
+        for proc_index, image_path in enumerate(sorted_images_path):
             image_id = os.path.basename(image_path).split('.')[0]
 
             # if run_predict is False:
@@ -213,6 +214,8 @@ if __name__ == '__main__':
     # threshold = float(sys.argv[1])
     eval_images_dir = '/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/TS-D-B-2'
 
+    complete_subset = '-'.join(DATASET_ID.split('-')[:-1])
+    eval_images_dir = f'/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/{complete_subset}'
     # # Disable logging for fastai and its dependencies
     # logging.getLogger('fastai').setLevel(logging.CRITICAL)
     # logging.getLogger('torch').setLevel(logging.CRITICAL)
@@ -229,7 +232,7 @@ if __name__ == '__main__':
         res = evaluator.run(threshold=threshold, recreate_predict=True)
         print(json.dumps(res, indent=4))
     res_list = []
-    for threshold in [0.5, 0.6, 0.65, 0.75, 0.8, 0.95]:
+    for threshold in [0.35, 0.5, 0.6, 0.65, 0.75, 0.8, 0.95]:
         evaluator = ClsEvaluator(eval_images_dir, base_model, MODEL_ID)
         evaluator.debug = False
         res = evaluator.run(threshold=threshold, recreate_predict=False)

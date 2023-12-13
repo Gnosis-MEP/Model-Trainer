@@ -10,9 +10,8 @@ import cv2
 import numpy as np
 
 
-from model_trainer.cv_diff_model_transforms import get_transforms
 from model_trainer.model_cv_diff import get_base_diff_model
-from model_trainer.conf import EVAL_CONFS_JSON, EVAL_DIFF_PREDICTION_JSON, MODEL_ID
+from model_trainer.conf import EVAL_CONFS_JSON, EVAL_DIFF_PREDICTION_JSON, MODEL_ID, DATASET_ID
 
 
 class DiffEvaluator(object):
@@ -136,10 +135,14 @@ class DiffEvaluator(object):
         total_eval = 0
         sorted_images_path = sorted(self.images_paths, key=lambda k: int(os.path.basename(k).split('.png')[0].split('frame_')[1]))
         for proc_index, image_path in enumerate(sorted_images_path):
+            if proc_index < 300:
+                continue
             image_id = os.path.basename(image_path).split('.')[0]
 
             if run_predict is True:
                 diff_perc = self.model_predict(image_path)
+                # if diff_perc > self.model.diff_threshold:
+                #     print(f'{diff_perc} > {self.model.diff_threshold}: {image_id}')
 
                 if recreate_predict is True:
                     self.predicted_values[image_id] = diff_perc
@@ -201,8 +204,8 @@ class DiffEvaluator(object):
 
 if __name__ == '__main__':
     # threshold = float(sys.argv[1])
-    eval_images_dir = '/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/TS-D-Q-1'
-
+    complete_subset = '-'.join(DATASET_ID.split('-')[:-1])
+    eval_images_dir = f'/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/{complete_subset}'
     # # Disable logging for fastai and its dependencies
     # logging.getLogger('fastai').setLevel(logging.CRITICAL)
     # logging.getLogger('torch').setLevel(logging.CRITICAL)
@@ -221,10 +224,9 @@ if __name__ == '__main__':
     res_list = []
     for threshold in [0.05, 0.10, 0.15, 0.25, 0.35, 0.5]:
         t_predict_json = EVAL_DIFF_PREDICTION_JSON.format(t=int(threshold*100))
-        if not os.path.exists(t_predict_json):
-            evaluator = DiffEvaluator(eval_images_dir, base_model, MODEL_ID)
-            evaluator.debug = True
-            res = evaluator.run(threshold=threshold, recreate_predict=True)
+        # if not os.path.exists(t_predict_json):
+        evaluator = DiffEvaluator(eval_images_dir, base_model, MODEL_ID)
+        evaluator.debug = True
+        res = evaluator.run(threshold=threshold, recreate_predict=True)
         res_list.append(res)
-        time.sleep(5)
     print(json.dumps(res_list, indent=4))
