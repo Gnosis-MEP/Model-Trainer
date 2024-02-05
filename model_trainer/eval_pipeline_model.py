@@ -10,7 +10,7 @@ from PIL import Image
 import cv2
 import numpy as np
 
-from model_trainer.conf import EVAL_CONFS_JSON
+from model_trainer.conf import EVAL_CONFS_JSON, DATASET_ID
 
 
 class PipelineEvaluator(object):
@@ -139,6 +139,12 @@ class PipelineEvaluator(object):
 
 if __name__ == '__main__':
     pipeline_prediction_json = sys.argv[1]
+    prediction_dataset = os.path.basename(pipeline_prediction_json).split('-30')[0].split('_')[-1]
+    if prediction_dataset in DATASET_ID:
+        print(f'>>>> OK: predicted on {prediction_dataset}, evaluated on {DATASET_ID}')
+    else:
+        print(f'>>>> ERROR!: predicted on {prediction_dataset}, evaluated on {DATASET_ID}')
+        exit()
     evaluator = PipelineEvaluator()
     evaluator.debug = True
     res = evaluator.run(pipeline_prediction_json)
