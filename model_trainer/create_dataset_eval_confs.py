@@ -29,7 +29,7 @@ def create_segment_eval_config(base_annotations_json_path, query_ois, other_clas
     with open(base_annotations_json_path, 'r') as f:
         base_annotations = json.load(f)
 
-    eval_conf_name = f'{DATASET_ID}_-{n_ignored_frames}_{"-".join(query_ois)}_{"-".join(other_classes)}'
+    eval_conf_name = f'n_{DATASET_ID}_-{n_ignored_frames}_{"-".join(query_ois)}_{"-".join(other_classes)}'
 
 
 

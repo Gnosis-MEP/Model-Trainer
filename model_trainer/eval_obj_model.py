@@ -12,7 +12,7 @@ from fastai.basics import default_device
 from fastai.vision.all import load_learner, Path, PILImage, vision_learner, accuracy, show_image
 
 from model_trainer.dataloader import get_loader
-from model_trainer.conf import DATASET_PATH, EVAL_CONFS_JSON, EVAL_PREDICTION_JSON
+from model_trainer.conf import DATASET_PATH, EVAL_CONFS_JSON, EVAL_PREDICTION_JSON, DATASET_ID
 
 
 class ClsEvaluator(object):
@@ -22,10 +22,15 @@ class ClsEvaluator(object):
         self.setup_eval_confs()
         self.eval_images_dir = eval_images_dir
         self.images_paths = glob.glob(os.path.join(eval_images_dir, '*.png'))
-        dls = get_loader(DATASET_PATH)
-        self.learn = vision_learner(dls, base_model, metrics=accuracy)
-        self.learn.load(fine_tune_name)
-        self.learn.model.cuda()
+        try:
+            dls = get_loader(DATASET_PATH)
+            self.learn = vision_learner(dls, base_model, metrics=accuracy)
+            self.learn.load(fine_tune_name)
+            self.learn.model.cuda()
+        except FileNotFoundError:
+            # if already run predictions, and is now using the pre-saved prediction data, and already deleted the
+            # dataset from local disk
+            pass
         self.predicted_values = {}
         self.true_positives_events = []
         self.true_negatives_events = []
@@ -124,8 +129,10 @@ class ClsEvaluator(object):
                 print(f'i: {proc_index + 1}/{total_images}. total_eval: {total_eval/total_to_eval * 100}%')
 
         if run_predict is True:
-            with open(EVAL_PREDICTION_JSON, 'w') as f:
-                json.dump(self.predicted_values, f)
+            # with open(EVAL_PREDICTION_JSON, 'w') as f:
+            #     json.dump(self.predicted_values, f)
+            pass
+
         if self.debug:
             print(f'total_eval: {total_eval}. total_to_eval {total_to_eval}. total_images: {total_images}.')
         results = {'threshold': threshold}
@@ -170,9 +177,22 @@ class ClsEvaluator(object):
 
 if __name__ == '__main__':
     # threshold = float(sys.argv[1])
-    eval_images_dir = '/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/TS-D-Q-1'
+    raise Exception('use the eval from the pytorch obj, this was discontinued and never changed from the CLS model')
+
+    print(f'EVAL_CONFS_JSON: {EVAL_CONFS_JSON}')
+    print(f'EVAL_PREDICTION_JSON: {EVAL_PREDICTION_JSON}')
+    eval_images_dir = f'/home/arruda/projects/my-gnosis/live-street-datasets/my-creations/selected/Frames/{DATASET_ID.split("-10S")[0]}'
     evaluator = ClsEvaluator(eval_images_dir, models.mobilenet_v3_large, 'cls_model')
-    for threshold in [0.5, 0.8, 0.95]:
+    evaluator.debug = False
+    ths = [0.5, 0.8, 0.95]
+    # ths = [0.5,]
+    all_res = {}
+    for threshold in ths:
         res = evaluator.run(threshold=threshold, recreate_predict=False)
-        print(json.dumps(res, indent=4))
+        res['frames_dropped'] = len(evaluator.true_negatives_events) + len(evaluator.false_negatives_events)
+        res['frames_dropped_perc'] = res['frames_dropped'] / evaluator.eval_confs['Total_Non_Ignored_Frames']
+        all_res[str(threshold)] = res
+    print(json.dumps(all_res, indent=4))
     # evaluator.save()
+
+
