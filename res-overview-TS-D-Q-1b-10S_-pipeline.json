@@ -1,0 +1,52 @@
+# DATASET_ID=TS-D-Q-1b-10S python model_trainer/eval_pipeline_model.py /home/arruda/projects/my-gnosis/adaptive-publisher/data/eval/rpi_TS-D-Q-1b-30-1920x1080-ModelPipeline-cv-30-car-100-diff_15
+# final results (CAR):
+# Low Latency
+### pipeline(RPI): TS-D-Q-1b-30-1920x1080-ModelPipeline
+    -cv-30-car-250
+    -diff_15
+    -cls_TS-D-Q-1b-10S_-300_car_person-bird-dog_region_30_60
+    -obj_yolov5n_50
+
+
+pipeline(RPI) vs diff(t 0.05) vs classifier (no reg)(fine-tune, 1 epoch, 0.75 t) vs obj (0.5 t):
+throughput: 86.077 vs 106.029 vs 5.021 vs 1.625
+acc: 0.983 vs 0.97 vs 0.991 vs  0.987
+prec: 0.595 vs 0.364 vs 0.853 vs 0.730
+recall: 0.640 vs 0.602 vs 0.719 vs 0.623
+f1: 0.617 vs 0.454 vs 0.780 vs 0.672
+{
+    "accuracy": 0.9835460992907802,
+    "precision": 0.5955414012738853,
+    "recall": 0.6404109589041096,
+    "f1_score": 0.6171617161716172,
+    "avg_latency": 0.011617475381265114,
+    "std_latency": 0.07911650548937312,
+    "throughput": 86.07722135677145
+}
+
+
+
+
+## High-Acc
+### Pipeline (RPI) TS-D-Q-1b-30-1920x1080-ModelPipeline
+    -cv-30-car-100
+    -diff_5
+    -cls_TS-D-Q-1b-10S_-300_car_person-bird-dog_region_20_80
+    -obj_yolov5n_50.json
+
+pipeline(RPI) vs diff(t 0.05) vs classifier (no reg)(fine-tune, 1 epoch, 0.75 t) vs obj (0.5 t):
+throughput: 60.748 vs 106.029 vs 5.021 vs 1.625
+acc: 0.989 vs 0.97 vs 0.991 vs  0.987
+prec: 0.748 vs 0.364 vs 0.853 vs 0.730
+recall: 0.773 vs 0.602 vs 0.719 vs 0.623
+f1: 0.760 vs 0.454 vs 0.780 vs 0.672
+
+{
+    "accuracy": 0.9899290780141844,
+    "precision": 0.7483443708609272,
+    "recall": 0.773972602739726,
+    "f1_score": 0.760942760942761,
+    "avg_latency": 0.01646136886104672,
+    "std_latency": 0.09298445319687172,
+    "throughput": 60.748289430919996
+}

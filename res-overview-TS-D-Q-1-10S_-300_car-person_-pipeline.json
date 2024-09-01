@@ -1,0 +1,25 @@
+
+
+# High-Acc
+### Pipeline (RPI) TS-D-Q-1-30-1920x1080-ModelPipeline
+    -cv-30-car_person-100
+    -diff_5
+    -cls_TS-D-Q-1-10S_-300_car_person-bird-dog_region_20_80
+    -obj_yolov5n_50.json
+
+pipeline(RPI) vs diff(t 0.05) vs classifier (no reg) (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+throughput: 37.697 vs ??(est 5.021, not rpi) vs ?? (est 1.625, not rpi)
+acc: 0.888 vs 0.861 vs  0.981
+prec: 0.916 vs 0.296 vs 0.913
+recall: 0.398 vs 0.458 vs 0.869
+f1: 0.555 vs 0.359 vs 0.890
+
+{
+    "accuracy": 0.8883687943262412,
+    "precision": 0.9169776119402985,
+    "recall": 0.39829821717990277,
+    "f1_score": 0.5553672316384182,
+    "avg_latency": 0.026526800854777023,
+    "std_latency": 0.14402161110196232,
+    "throughput": 37.69772335060589
+}

@@ -1,17 +1,17 @@
 # final results:
 ## Low latency:
-### pipeline: TS-D-B-2-30-1920x1080-ModelPipeline
+### pipeline (PC): TS-D-B-2-30-1920x1080-ModelPipeline
     -cv-30-car-150
     -diff_15
     -cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_30_70
     -obj_yolov5n_50
 
-pipeline vs diff(t 0.05) vs classifier regions (no reg) (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+pipeline(PC) vs diff(t 0.05) vs classifier regions  (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
 throughput: 264.541 vs 525.794 vs 104.687 vs 40.76
-acc: 0.913 vs 0.432 vs 0.854(0.601) vs 0.923
-prec: 0.942 vs 0.946 vs 0.946(0.968) vs 0.957
-recall: 0.954 vs 0.345 vs 0.876(0.544) vs 0.950
-f1: 0.948 vs 0.506 vs 0.910(0.696) vs 0.954
+acc: 0.913 vs 0.432 vs 0.854vs 0.923
+prec: 0.942 vs 0.946 vs 0.946 vs 0.957
+recall: 0.954 vs 0.345 vs 0.876 vs 0.950
+f1: 0.948 vs 0.506 vs 0.910 vs 0.954
 
 {
     "accuracy": 0.9131205673758865,
@@ -25,21 +25,18 @@ f1: 0.948 vs 0.506 vs 0.910(0.696) vs 0.954
 
 
 
-
-TS-D-B-2-30-1920x1080-ModelPipeline-cv-30-car-250-diff_15-cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_30_60-obj_yolov5n_50.json
-
-### pipeline: TS-D-B-2-30-1920x1080-ModelPipeline
+### pipeline (PC): TS-D-B-2-30-1920x1080-ModelPipeline
     -cv-30-car-250
     -diff_15
     -cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_30_60
     -obj_yolov5n_50
 
-pipeline(PC) vs diff(t 0.05) vs classifier regions (no reg) (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+pipeline(PC) vs diff(t 0.05) vs classifier regions  (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
 throughput: 294.442 vs 525.794 vs 104.687 vs 40.76
-acc: 0.915 vs 0.432 vs 0.854(0.601) vs 0.923
-prec: 0.960 vs 0.946 vs 0.946(0.968) vs 0.957
-recall: 0.960 vs 0.345 vs 0.876(0.544) vs 0.950
-f1: 0.950 vs 0.506 vs 0.910(0.696) vs 0.954
+acc: 0.915 vs 0.432 vs 0.854 vs 0.923
+prec: 0.960 vs 0.946 vs 0.946 vs 0.957
+recall: 0.960 vs 0.345 vs 0.876 vs 0.950
+f1: 0.950 vs 0.506 vs 0.910 vs 0.954
 
 {
     "accuracy": 0.9155319148936171,
@@ -57,12 +54,12 @@ f1: 0.950 vs 0.506 vs 0.910(0.696) vs 0.954
     -cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_30_60
     -obj_yolov5n_50
 
-pipeline(RPI) vs diff(t 0.05) vs classifier regions (no reg) (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
-throughput: 74.445 vs 525.794 vs 104.687 vs 40.76
-acc: 0.921 vs 0.432 vs 0.854(0.601) vs 0.923
-prec: 0.938 vs 0.946 vs 0.946(0.968) vs 0.957
-recall: 0.969 vs 0.345 vs 0.876(0.544) vs 0.950
-f1: 0.953 vs 0.506 vs 0.910(0.696) vs 0.954
+pipeline(RPI) vs diff(t 0.05) vs classifier regions(fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+throughput: 74.445 vs 99.093 vs 4.592 vs 1.645
+acc: 0.921 vs 0.432 vs 0.854 vs 0.923
+prec: 0.938 vs 0.946 vs 0.946 vs 0.957
+recall: 0.969 vs 0.345 vs 0.876 vs 0.950
+f1: 0.953 vs 0.506 vs 0.910 vs 0.954
 
 {
     "accuracy": 0.9212765957446809,
@@ -74,3 +71,101 @@ f1: 0.953 vs 0.506 vs 0.910(0.696) vs 0.954
     "throughput": 74.44564527726442
 }
 
+
+## Low latency +:
+### pipeline(RPI): TS-D-B-2-30-1920x1080-ModelPipeline
+    -cv-30-car-350
+    -diff_20
+    -cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_35_55
+    -obj_yolov5n_50
+    pipeline(RPI) vs diff(t 0.05) vs classifier regions(fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+    throughput: 100.416 vs 99.093 vs 4.592 vs 1.645
+    acc: 0.896 vs 0.432 vs 0.854 vs 0.923
+    prec: 0.927 vs 0.946 vs 0.946 vs 0.957
+    recall: 0.950 vs 0.345 vs 0.876 vs 0.950
+    f1: 0.939 vs 0.506 vs 0.910 vs 0.954
+
+{
+    "accuracy": 0.8963829787234042,
+    "precision": 0.9278426855356261,
+    "recall": 0.9507630048056657,
+    "f1_score": 0.939163023110556,
+    "avg_latency": 0.009958531745474791,
+    "std_latency": 0.07372116224692879,
+    "throughput": 100.41640932202733
+}
+
+
+## High-Acc
+### Pipeline (RPI) TS-D-B-2-30-1920x1080-ModelPipeline
+    -cv-30-car-100
+    -diff_5
+    -cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_20_80
+    -obj_yolov5n_50.json
+
+pipeline(RPI) vs diff(t 0.05) vs classifier regions (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+throughput: 30.56 vs 69.741 vs 4.529 vs 1.539
+acc: 0.920 vs 0.432 vs 0.854 vs 0.923
+prec: 0.955 vs 0.946 vs 0.946 vs 0.957
+recall: 0.949 vs 0.345 vs 0.876 vs 0.950
+f1: 0.952 vs 0.506 vs 0.910 vs 0.954
+
+{
+    "accuracy": 0.9207801418439716,
+    "precision": 0.9556403731976251,
+    "recall": 0.949919905572886,
+    "f1_score": 0.9527715529998732,
+    "avg_latency": 0.032714621364540786,
+    "std_latency": 0.17549494128580692,
+    "throughput": 30.56737196671012
+}
+
+## High-Acc+
+### TS-D-B-2-30-1920x1080-ModelPipeline
+    -cv-30-car-50
+    -diff_3
+    -cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_10_90
+    -obj_yolov5n_50.json
+
+pipeline(RPI) vs diff(t 0.05) vs classifier regions (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+throughput: 16.045 vs 69.741 vs 4.529 vs 1.539
+acc: 0.92 vs 0.432 vs 0.854 vs 0.923
+prec: 0.949 vs 0.946 vs 0.946 vs 0.957
+recall: 0.956 vs 0.345 vs 0.876 vs 0.950
+f1: 0.952 vs 0.506 vs 0.910 vs 0.954
+
+
+{
+    "accuracy": 0.92,
+    "precision": 0.9490419211781441,
+    "recall": 0.9562431498187337,
+    "f1_score": 0.9526289265916345,
+    "avg_latency": 0.06232250671644785,
+    "std_latency": 0.24467718740383565,
+    "throughput": 16.045567687926212
+}
+
+# High-ACC ++ (no cache)
+### TS-D-B-2-30-1920x1080-ModelPipeline
+    -cv-30-car-0
+    -diff_3
+    -cls_TS-D-B-2-10S_-300_car_person-bird-dog_region_10_90
+    -obj_yolov5n_50.json
+
+
+pipeline(RPI) vs diff(t 0.05) vs classifier regions (fine-tune, 1 epoch, 0.5 t) vs obj (0.5 t):
+throughput: 2.326 vs 69.741 vs 4.529 vs 1.539
+acc: 0.922 vs 0.432 vs 0.854 vs 0.923
+prec: 0.951 vs 0.946 vs 0.946 vs 0.957
+recall: 0.956 vs 0.345 vs 0.876 vs 0.950
+f1: 0.953 vs 0.506 vs 0.910 vs 0.954
+
+{
+    "accuracy": 0.9220567375886525,
+    "precision": 0.9512747400201275,
+    "recall": 0.9563274597420116,
+    "f1_score": 0.9537944082404877,
+    "avg_latency": 0.42984055930841053,
+    "std_latency": 0.46751954813873997,
+    "throughput": 2.326444022892917
+}
