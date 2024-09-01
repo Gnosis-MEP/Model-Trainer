@@ -15,10 +15,11 @@ SERVICE_STREAM_KEY = config('SERVICE_STREAM_KEY')
 
 
 # DATASET_ID = config('DATASET_ID', default='TS-D-Q-1-5S')
-DATASET_ID = config('DATASET_ID', default='TS-D-Q-1-10S')
+# DATASET_ID = config('DATASET_ID', default='TS-D-Q-1-10S')
 # DATASET_ID = config('DATASET_ID', default='TS-D-Q-2-10S')
 # DATASET_ID = config('DATASET_ID', default='TS-D-Q-1b-10S')
 # DATASET_ID = config('DATASET_ID', default='TS-D-B-2-10S')
+DATASET_ID = config('DATASET_ID', default='HS-D-B-1-10S')
 
 AUGMENTED_DATASETS_PATH = config('AUGMENTED_DATASETS_PATH')
 
@@ -26,9 +27,9 @@ DATASET_PATH = config('DATASET_PATH', default=os.path.join(AUGMENTED_DATASETS_PA
 MODELS_PATH = config('MODELS_PATH', default=os.path.join(PROJECT_ROOT, 'data', 'models'))
 # MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-150_car_person-bird-dog')
 # MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-300_person_car-bird-dog')
-MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-300_car_person-bird-dog')
 # MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-300_car_person-bird-dog_region')
 # MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-300_car-person_bird-dog')
+MODEL_ID =  config('MODEL_ID', default=f'{DATASET_ID}_-300_car')
 
 
 # MODEL_ID =  config('MODEL_ID', default=f'TS-D-Q-1b-10S_-300_car_person-bird-dog') # overriding just to test out a model in another dataset

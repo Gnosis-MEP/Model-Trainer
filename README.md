@@ -19,6 +19,17 @@ To install from the `requirements.txt` file, run the following command:
 $ pip install  -r requirements.txt
 ```
 
+# Training the Classifier Model
+Set on .env:
+* DATASET_ID: The augmented sub-dataset ID, eg: HS-D-B-1-10S
+* AUGMENTED_DATASETS_PATH: path to the augmented datasets location, eg: ../dataset-augmenter/outputs
+* MODEL_ID: What will be the model ID, eg: 'HS-D-B-1-10S_-300_car-person', is the model trained on the HS-D-B-1-10S, with 300 sampled frames, for the car+person OIs,
+
+Then run:
+```
+python ./model_trainer/model_torch.py
+```
+
 # Running
 Enter project python environment (virtualenv or conda environment)
 
@@ -37,6 +48,9 @@ maybe this as well: https://pytorch.org/tutorials/intermediate/realtime_rpi.html
 
 CUDA_VISIBLE_DEVICES="" python model_trainer/eval_cls_model_torch.py
 
+
+#
+python model_trainer/create_dataset_eval_confs.py ../live-street-datasets/my-creations/selected/Annotations/TS-D-Q-1/base/annotations_TS-D-Q-1.json 5 person,car dog
 
 # License
 Distributed under the apache 2 license. See license file for more details.
